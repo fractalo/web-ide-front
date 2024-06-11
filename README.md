@@ -12,7 +12,7 @@
 || 이예진 | 채팅 기능 구현 ||
 
 ## 기술스택
-[![stackticon](https://firebasestorage.googleapis.com/v0/b/stackticon-81399.appspot.com/o/images%2F1718071704115?alt=media&token=6f94698b-490b-4950-9917-0a1a655794fb](https://github.com/msdio/stackticon)
+[![stackticon](https://firebasestorage.googleapis.com/v0/b/stackticon-81399.appspot.com/o/images%2F1718071704115?alt=media&token=6f94698b-490b-4950-9917-0a1a655794fb)](https://github.com/msdio/stackticon)
 
 ## 주요 기능 
 ---
