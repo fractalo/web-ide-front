@@ -11,8 +11,13 @@
     "init": "eslint src"
   },
   "dependencies": {
+    "@monaco-editor/react": "^4.6.0",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react-dom": "^18.2.0",
+    "react-router-dom": "^6.23.1",
+    "y-monaco": "^0.1.5",
+    "y-websocket": "^2.0.3",
+    "yjs": "^13.6.16"
   },
   "devDependencies": {
     "@types/react": "^18.2.66",
