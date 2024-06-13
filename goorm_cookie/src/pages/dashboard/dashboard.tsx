@@ -1,11 +1,15 @@
 import React from 'react'
 import './dashboard.css'
+import CodeEditor from '../../components/codeEditor';
+import { v4 as uuidv4 } from 'uuid'
 
-function dashboard() {
+const dashboard: React.FC = () => {
+  const roomId = uuidv4()
+
   return (
-    <div className='ad'>
+    <div style={{height: '100vh'}}>
       <h1>Dashboard</h1>
-      <p>Welcome to your Dashboard.</p>
+      <CodeEditor roomId={roomId} />
     </div>
   );
 }
