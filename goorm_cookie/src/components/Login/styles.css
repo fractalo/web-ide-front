@@ -1,0 +1,120 @@
+body {
+    color: white;
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    margin: 0;
+}
+
+.login-container {
+    background-color: transparent !important;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 20rem !important;
+    text-align: center;
+    margin-bottom: 14rem;
+}
+
+h2 {
+    color: white;
+    margin-bottom: 20px;
+}
+
+.form-group {
+    margin-bottom: 15px;
+    text-align: left;
+}
+
+.input-icon-container {
+    position: relative;
+}
+
+.input-icon {
+    position: absolute;
+    left: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 20px;
+    height: 20px;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+input {
+    width: 100%;
+    padding: 15px 10px 15px 38px !important;
+    box-sizing: border-box;
+    border: 1px solid #ccc !important;
+    color: white !important;
+    border-radius: 10px !important;
+    background-color: transparent !important;
+}
+
+button {
+    background-color: transparent !important;
+    width: 100%;
+    height: 45px;
+    padding: 15px;
+    background-color: transparent;
+    color: white; 
+    border: 1px solid #ccc !important;
+    border-radius: 10px !important; 
+    cursor: pointer;
+    margin: 10px auto 3px auto;
+}
+
+button:hover {
+    color: #0C081E;
+    background-color: white !important;
+}
+
+.kakao-login-container {
+    margin-top: 10px;
+    border-radius: 12px;
+}
+
+.kakao-login {
+    border-radius: 12px;
+    width: 100%;
+}
+
+.kakao-login:hover {
+    cursor: pointer;
+}
+
+.pass-link {
+    float: right;
+    margin: 5px;
+}
+
+.links {
+    color: white;
+    font-size: 14px;
+}
+
+.links a {
+    color: white !important;
+    text-decoration: none;
+}
+
+.links a:hover {
+    color: white !important;
+    text-decoration: underline;
+}
+
+.ifNotRegistered {
+    font-weight: 600;
+    margin: 5px;
+    font-size: 15px;
+}
+
+.register-link {
+    margin-left: 8px;
+    color: white;
+}
