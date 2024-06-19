@@ -15,7 +15,7 @@ body {
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     width: 20rem !important;
     text-align: center;
-    margin-bottom: 14rem;
+    margin: 120px auto 30px auto;
 }
 
 h2 {
@@ -62,11 +62,11 @@ button {
     height: 45px;
     padding: 15px;
     background-color: transparent;
-    color: white; 
+    color: white;
     border: 1px solid #ccc !important;
-    border-radius: 10px !important; 
+    border-radius: 10px !important;
     cursor: pointer;
-    margin: 10px auto 3px auto;
+    margin: 15px auto 3px auto;
 }
 
 button:hover {
@@ -89,6 +89,7 @@ button:hover {
 }
 
 .pass-link {
+    text-decoration: none;
     float: right;
     margin: 5px;
 }
@@ -98,23 +99,31 @@ button:hover {
     font-size: 14px;
 }
 
-.links a {
-    color: white !important;
-    text-decoration: none;
-}
-
-.links a:hover {
-    color: white !important;
-    text-decoration: underline;
+.links:hover {
+    color: #ffd253;
+    font-weight: 600;
 }
 
 .ifNotRegistered {
-    font-weight: 600;
     margin: 5px;
-    font-size: 15px;
+    font-size: 14px;
 }
 
 .register-link {
-    margin-left: 8px;
+    margin-left: 3px;
     color: white;
+    text-decoration: none;
+}
+
+.auto-login-container {
+    display: flex;
+    align-items: center;
+    width: 150px;
+    margin-top: 10px;
+    font-size: 14px;
+}
+
+.auto-login-container input {
+    width: 30px;
+    margin-left: -2px
 }

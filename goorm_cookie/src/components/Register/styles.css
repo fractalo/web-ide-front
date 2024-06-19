@@ -1,6 +1,6 @@
 body {
     font-family: Arial, sans-serif;
-    background-color: #f2f2f2;
+    background-color: transparent;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -10,12 +10,13 @@ body {
 
 .login-container,
 .register-container {
-    background-color: #fff;
+    background-color: transparent;
     padding: 20px;
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     width: 300px;
     text-align: center;
+    margin: 120px auto 30px auto;
 }
 
 h2 {
@@ -55,14 +56,27 @@ button:hover {
 }
 
 .links {
-    margin-top: 15px;
+    color: white;
+    font-size: 14px;
 }
 
-.links a {
-    color: #007BFF;
+.ifAlreadyRegistered {
+    margin: 5px;
+    font-size: 14px;
+}
+
+.login-link {
     text-decoration: none;
+    margin-left: 5px;
+    color: white;
 }
 
-.links a:hover {
-    text-decoration: underline;
+.login-link:hover {
+    font-weight: 600;
+    color: #ffd253;
 }
+
+
+
+
+

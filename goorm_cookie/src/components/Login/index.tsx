@@ -1,21 +1,63 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import { EmailIcon, PasswordIcon } from '../../assets';
+import { useAuth } from '../../contexts/AuthContext';
 import './styles.css';
 
-const Login: React.FC = () => {
+const LoginPage: React.FC = () => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
+    const [autoLogin, setAutoLogin] = useState(false);
+    const [error, setError] = useState('');
+    const [loading, setLoading] = useState(false);
+    const { login } = useAuth();
+    const navigate = useNavigate();
 
-    const handleLogin = (e: React.FormEvent) => {
+    useEffect(() => {
+        const savedUsername = localStorage.getItem('username') || sessionStorage.getItem('username');
+        const savedPassword = localStorage.getItem('password') || sessionStorage.getItem('password');
+        if (savedUsername && savedPassword) {
+            setUsername(savedUsername);
+            setPassword(savedPassword);
+            handleLogin({ preventDefault: () => {} } as React.FormEvent);
+        }
+    }, []);
+
+    const handleLogin = async (e: React.FormEvent) => {
         e.preventDefault();
-        // 로그인 로직 처리
-        console.log('아이디:', username);
-        console.log('비밀번호:', password);
+        setLoading(true);
+        setError('');
+
+        try {
+            console.log('아이디:', username);
+            console.log('비밀번호:', password);
+
+            // 실제 로그인 API 호출 예시
+            // const response = await api.login({ username, password });
+            // if (response.success) {
+            //     login();
+            //     navigate('/');
+            // } else {
+            //     setError('로그인에 실패했습니다. 사용자명 또는 비밀번호를 확인하세요.');
+            // }
+
+            // 로그인 성공 시 로그인 상태 업데이트
+            login();
+            if (autoLogin) {
+                localStorage.setItem('username', username);
+                localStorage.setItem('password', password);
+            } else {
+                sessionStorage.setItem('username', username);
+                sessionStorage.setItem('password', password);
+            }
+            navigate('/');
+        } catch (err) {
+            setError('로그인 중 오류가 발생했습니다.');
+        }
+        setLoading(false);
     };
 
     const handleKakaoLogin = () => {
-        // 카카오 로그인 로직 처리
         console.log('카카오 로그인');
     };
 
@@ -23,6 +65,7 @@ const Login: React.FC = () => {
         <>
             <div className="login-container">
                 <h2>로그인</h2>
+                {error && <div className="error-message">{error}</div>}
                 <form onSubmit={handleLogin}>
                     <div className="form-group">
                         <label htmlFor="username"></label>
@@ -40,6 +83,17 @@ const Login: React.FC = () => {
                         </div>
                     </div>
                     <div className="form-group">
+                        <div className="auto-login-container">
+                            <input
+                                id="auto-login"
+                                type="checkbox"
+                                checked={autoLogin}
+                                onChange={(e) => setAutoLogin(e.target.checked)}
+                            />
+                            <label htmlFor="auto-login">자동 로그인</label>
+                        </div>
+                    </div>
+                    <div className="form-group">
                         <label htmlFor="password"></label>
                         <div className="input-icon-container">
                             <PasswordIcon className="input-icon" />
@@ -52,10 +106,12 @@ const Login: React.FC = () => {
                                 placeholder="비밀번호를 입력하세요"
                                 required
                             />
-                                <Link to="/forgot-password" className="links pass-link">비밀번호가 기억나지 않는다면?</Link>
+                            <Link to="/forgot-password" className="links pass-link">비밀번호가 기억나지 않는다면?</Link>
                         </div>
                     </div>
-                    <button type="submit">로그인</button>
+                    <button type="submit" disabled={loading}>
+                        {loading ? '로그인 중...' : '로그인'}
+                    </button>
                     <div className="kakao-login-container">
                         <img
                             src="/kakaoLogin.png"
@@ -66,12 +122,11 @@ const Login: React.FC = () => {
                     </div>
                 </form>
                 <div className="ifNotRegistered">
-                    아직 회원이 아니라면?
-                     <Link to="/register" className="links register-link">회원가입</Link>
+                    <p>아직 회원이 아니라면? <Link to="/register" className="links register-link">회원가입</Link></p>
                 </div>
             </div>
         </>
     );
 };
 
-export default Login;
+export default LoginPage;
