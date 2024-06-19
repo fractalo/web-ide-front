@@ -1,8 +1,8 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import C_Room from './pages/C_Room/C_Room';
-import Dashboard from './pages/Dashboard/Dashboard';
 import HomePage from './pages/HomePage';
+import Dashboard from './pages/dashboard/Dashboard';
 
 const App: React.FC = () => {
   return (

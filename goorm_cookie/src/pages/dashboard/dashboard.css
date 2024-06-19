@@ -1,7 +1,12 @@
-*{
-    background-color: white;
+#ide_main_board{
+    width: 100%;
+    display: flex;
+    margin: 16px auto auto 45px;
 }
 
-.custom-monaco-editor{
-    
+#vertical-line{
+    border-radius: 8px;
+    width: 5px;
+    background-color: white;
+    margin: 0 30px 0 40px;
 }

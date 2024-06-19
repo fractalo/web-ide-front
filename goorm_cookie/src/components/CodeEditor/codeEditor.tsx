@@ -74,26 +74,28 @@ const CodeEditor: React.FC<CodeEditorProps> = ({ roomId, language }) => {
   };
 
   return (
-    <div>
-      <div className="compiling">
-        <div className='com_item1'>
+    <div id='code-editor-setup'>
+      <div>
+        <div id='monaco-editor'>
           <Editor
-            height="50vh"
-            width="50vh"
+            height="45vh"
+            width="130vh"
             defaultLanguage={language}
-            theme="vs-dark"
+            theme="light"
             options={{ selectOnLineNumbers: true, automaticLayout: true }}
             onMount={handleEditorDidMount}/>
         </div>
-        <div className='com_item2'>
+        <div>
           <button className="compiling_box" onClick={runCode}>
-            compiling
+            컴파일
           </button>
         </div>
-        <div className='com_item3'>
-          <h3>Output:</h3>
+
+        <div id='ide_out_put'>
+          <h3>출력</h3>
           <pre>{output}</pre>
         </div>
+        
       </div>
     </div>
   );
