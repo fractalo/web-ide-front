@@ -14,6 +14,7 @@
     "@monaco-editor/react": "^4.6.0",
     "@types/uuid": "^9.0.8",
     "@types/ws": "^8.5.10",
+    "axios": "^1.7.2",
     "monaco-editor": "^0.49.0",
     "monaco-languages": "^2.11.1",
     "react": "^18.2.0",
