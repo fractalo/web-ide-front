@@ -7,6 +7,9 @@ import HomePage from './pages/HomePage';
 import InfoPage from './pages/InfoPage';
 import ForgotPassPage from './pages/ForgotPassPage';
 import { AuthProvider, useAuth } from './contexts/AuthContext';
+import C_Room from './pages/C_Room/C_Room';
+import Dashboard from './pages/dashboard/dashboard';
+
 
 const PrivateRoute: React.FC<{ element: React.ReactElement }> = ({ element }) => {
   const { isLoggedIn } = useAuth();
@@ -23,6 +26,8 @@ const App: React.FC = () => {
           <Route path="/register" element={<RegisterPage />} />
           <Route path="/info" element={<InfoPage />} />
           <Route path="/forgot-password" element={<ForgotPassPage />} />
+          <Route path="/c_room" element={<C_Room />} />
+          <Route path="/room/:roomId/:lang" element={<Dashboard />} />
         </Routes>
       </BrowserRouter>
     </AuthProvider>
