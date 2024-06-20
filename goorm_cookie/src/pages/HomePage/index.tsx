@@ -1,15 +1,9 @@
-import'./styles.css';
 import Header from '../../components/Header'
-<<<<<<< HEAD
-=======
-import MainContainer from '../../components/MainContainer'
->>>>>>> origin/hansol
-import Footer from '../../components/Footer';
+import'./styles.css';
 
 export default function HomePage() {
   return (
       <>
-<<<<<<< HEAD
       <Header />
       <div className="container">
       <div className="project-list">
@@ -33,11 +27,6 @@ export default function HomePage() {
         </div>
       </div>
     </div>
-=======
-          <Header />
-      <MainContainer></MainContainer>
->>>>>>> origin/hansol
-      <Footer />
       </>
   )
 }
