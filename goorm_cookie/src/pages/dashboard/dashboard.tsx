@@ -4,7 +4,7 @@ import CodeEditor from '../../components/CodeEditor/codeEditor';
 import Header from '../../components/Header';
 import Footer from '../../components/Footer';
 import ChatComponent from '../../components/ChatComponent/ChatComponent'; 
-import './Dashboard.css';
+import './dashboard.css';
 
 const Dashboard: React.FC = () => {
   const { roomId, lang } = useParams<{ roomId: string; lang: string }>();
@@ -20,7 +20,6 @@ const Dashboard: React.FC = () => {
                   <ChatComponent /> 
               </div>
           </div>
-          <Footer />
       </div>
   );
 };

@@ -19,7 +19,6 @@ const App: React.FC = () => {
             <Route path="/dashboard" element={<Dashboard />} />
         </Routes>
       </MainContainer>
-      <Footer />
     </Router>
   );
 };
