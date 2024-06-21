@@ -4,7 +4,7 @@ import CodeEditor from '../../components/CodeEditor/codeEditor';
 import Header from '../../components/Header';
 import ChatComponent from '../../components/ChatComponent/ChatComponent'; 
 import './dashboard.css';
-
+//병합 
 const Dashboard: React.FC = () => {
   const { roomId, lang } = useParams<{ roomId: string; lang: string }>();
 
