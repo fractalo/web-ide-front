@@ -1,5 +1,4 @@
 import React from 'react';
-import ReactDOM from 'react-dom/client';
 import { BrowserRouter, Route, Routes, Navigate } from 'react-router-dom';
 import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
@@ -9,6 +8,7 @@ import ForgotPassPage from './pages/ForgotPassPage';
 import { AuthProvider, useAuth } from './contexts/AuthContext';
 import C_Room from './pages/C_Room/C_Room';
 import Dashboard from './pages/dashboard/dashboard';
+import ReactDOM from 'react-dom/client';
 
 
 const PrivateRoute: React.FC<{ element: React.ReactElement }> = ({ element }) => {
@@ -39,3 +39,7 @@ if (rootElement) {
   const root = ReactDOM.createRoot(rootElement);
   root.render(<App />);
 }
+
+
+export default App;
+
