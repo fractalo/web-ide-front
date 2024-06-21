@@ -17,19 +17,6 @@
   margin-bottom: 20px;
 }
 
-.create_room-icon input {
-  width: 300px;
-  padding-left: 40px; /* 아이콘 공간 확보 */
-  padding-right: 10px;
-  height: 40px;
-  border: 1px solid #bcbcbc;
-  border-radius: 5px;
-  background-color: #1b1429; /* 배경색 */
-  color: #ffffff; /* 글자 색상 */
-  font-size: 16px;
-  z-index: 1; /* 아이콘 앞에 배치 */
-}
-
 .create_room-icon .roomicon {
   position: absolute;
   left: 10px;
@@ -51,7 +38,7 @@
   padding-right: 10px;
   height: 40px;
   border: 1px solid #bcbcbc;
-  border-radius: 5px; /* 둥근 테두리 */
+  border-radius: 10px; /* 둥근 테두리 */
   background-color: #1b1429; /* 배경색 */
   color: #ffffff; /* 글자 색상 */
   font-size: 16px;
@@ -75,4 +62,9 @@
   margin-top: 10px;
   width: 353px;
   height: 40px;
+}
+
+#room_title{
+  width: 350px;
+  height: 44px;
 }

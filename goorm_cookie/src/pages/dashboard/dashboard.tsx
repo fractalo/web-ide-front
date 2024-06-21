@@ -11,10 +11,11 @@ const Dashboard: React.FC = () => {
   return (
       <div>
           <Header />
-          <div id="ide_main_board" style={{ display: 'flex', justifyContent: 'space-between' }}> 
-              <div style={{ flex: 1 }}>
+          <div id="ide_main_board"> 
+              <div>
                   {roomId && lang && <CodeEditor roomId={roomId} language={lang} />}
               </div>
+              
               <div style={{ width: '300px', padding: '20px' }} id="vertical-line"> 
                   <ChatComponent /> 
               </div>

@@ -1,6 +1,7 @@
 #ide_main_board{
     width: 100%;
     display: flex;
+    justify-content: space-between;
     margin: 16px auto auto 45px;
 }
 
