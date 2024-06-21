@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { EmailIcon, PasswordIcon } from '../../assets';
 import { useAuth } from '../../contexts/AuthContext';
+import { signInWithPopup, GoogleAuthProvider, getAuth } from "firebase/auth";
 import './styles.css';
 
 const LoginPage: React.FC = () => {
@@ -12,6 +13,8 @@ const LoginPage: React.FC = () => {
     const [loading, setLoading] = useState(false);
     const { login } = useAuth();
     const navigate = useNavigate();
+    const provider = new GoogleAuthProvider();
+    const auth = getAuth();
 
     useEffect(() => {
         const savedUsername = localStorage.getItem('username') || sessionStorage.getItem('username');
@@ -21,6 +24,7 @@ const LoginPage: React.FC = () => {
             setPassword(savedPassword);
             handleLogin({ preventDefault: () => {} } as React.FormEvent);
         }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     const handleLogin = async (e: React.FormEvent) => {
@@ -59,6 +63,22 @@ const LoginPage: React.FC = () => {
 
     const handleKakaoLogin = () => {
         console.log('카카오 로그인');
+    };
+
+    const signInWithGoogle = () => {
+        setLoading(true);
+        signInWithPopup(auth, provider)
+          .then((result) => {
+            console.log(result);
+            // 로그인 성공 시 로그인 상태 업데이트
+            login();
+            navigate('/');
+          })
+          .catch((error) => {
+            console.error(error.code, error.message, error.customData.email);
+            setError('구글 로그인 중 오류가 발생했습니다.');
+            setLoading(false);
+          });
     };
 
     return (
@@ -112,12 +132,18 @@ const LoginPage: React.FC = () => {
                     <button type="submit" disabled={loading}>
                         {loading ? '로그인 중...' : '로그인'}
                     </button>
-                    <div className="kakao-login-container">
+                    <div className="kakao-google-login-container">
                         <img
-                            src="/kakaoLogin.png"
+                            src="/kakaoLoginShort.png"
                             alt="카카오 로그인"
                             className="kakao-login"
                             onClick={handleKakaoLogin}
+                        />
+                        <img
+                            src="/googleLogin.png"
+                            alt="구글 로그인"
+                            className="google-login"
+                            onClick={signInWithGoogle}
                         />
                     </div>
                 </form>
