@@ -54,21 +54,44 @@ const CodeEditor: React.FC<CodeEditorProps> = ({ roomId, language }) => {
     }
   };
 
-  const runCode = async () => {
+  const runJavaScriptCode = () => {
     if (editorRef.current) {
       const code = editorRef.current.getValue();
       try {
-        const response = await fetch('/compile', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({ language, code }),
-        });
-        const result = await response.json();
-        setOutput(result.output);
+        const originalConsoleLog = console.log;
+        let consoleOutput = '';
+        console.log = (...args) => {
+          consoleOutput += args.join(' ') + '\n';
+          originalConsoleLog.apply(console, args);
+        };
+        new Function(code)();
+        console.log = originalConsoleLog;
+        setOutput(consoleOutput !== '' ? consoleOutput : '코드가 성공적으로 실행되었습니다. 결과가 없습니다.'); // 아무 코드도 입력 하지 않았을 때 ㅋ
       } catch (err) {
         setOutput(String(err));
+      }
+    }
+  };
+
+  const runCode = async () => {
+    if (language === 'javascript') {
+      runJavaScriptCode();
+    } else {
+      if (editorRef.current) {
+        const code = editorRef.current.getValue();
+        try {
+          const response = await fetch('/compile', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ language, code }),
+          });
+          const result = await response.json();
+          setOutput(result.output);
+        } catch (err) {
+          setOutput(String(err));
+        }
       }
     }
   };

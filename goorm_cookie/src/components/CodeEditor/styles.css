@@ -1,7 +1,6 @@
 #monaco-editor {
     border: 1px solid white;
     background-color: white;
-    width: 100%;
     height: 100%;
 }
 
@@ -11,11 +10,12 @@
     border: 1px solid white;
     border-radius: 8px;
     height: 290px;
-    width: 130vh;
+    
 }
 
 #ide_out_put h3,pre{
     margin-left: 25px;
+    color: black;
 }
 
 .compiling_box {
