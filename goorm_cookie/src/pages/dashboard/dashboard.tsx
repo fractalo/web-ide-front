@@ -8,7 +8,7 @@ import './dashboard.css';
 import styled from 'styled-components';
 import userDummy from '../../dummy/user.dummy'
 
-//병합 
+ 
 const Dashboard: React.FC = () => {
     const { roomId, lang } = useParams<{ roomId: string; lang: string }>();
     const [usersOnline, setUsersOnline] = useState<{ id: string, name: string, isOnline: boolean }[]>([
@@ -34,7 +34,6 @@ const Dashboard: React.FC = () => {
 };
 
 const StyledDashboard = styled.div`
-    background-color: red;
     height : 100%;
 `
 

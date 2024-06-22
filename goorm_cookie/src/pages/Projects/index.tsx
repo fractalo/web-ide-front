@@ -33,7 +33,6 @@ const Dashboard: React.FC = () => {
 };
 
 const StyledProjects = styled.div`
-    // background-color: red;
     height : 100%;
 `
 
