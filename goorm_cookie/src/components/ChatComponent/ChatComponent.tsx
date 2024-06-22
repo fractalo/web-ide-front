@@ -1,6 +1,8 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { io, Socket } from 'socket.io-client';
 import styles from './ChatComponent.module.css';
+import Stomp from '@stomp/stompjs'
+import { Client } from '@stomp/stompjs'
 
 const socket: Socket = io('http://localhost:5173');
 
@@ -9,6 +11,36 @@ const ChatComponent: React.FC = () => {
     const [chatHistory, setChatHistory] = useState<{ sender: string, message: string, timestamp: string }[]>([]);
     const [isTyping, setIsTyping] = useState(false);
     const messagesEndRef = useRef<null | HTMLDivElement>(null);
+
+    const [stompClient, setStompClient] = useState<Stomp.Client | null>(null)
+    useEffect(() => {
+        const stomp = new Client({
+            brokerURL: 'ws://localhost:8080/ws',
+            connectHeaders: {
+            },
+            debug: (str: string) => {
+                console.log(str)
+            },
+            reconnectDelay: 5000, //자동 재 연결
+            heartbeatIncoming: 4000,
+            heartbeatOutgoing: 4000,
+        })
+        setStompClient(stomp)
+
+        stomp.activate()
+        stomp.onConnect = () => {
+            console.log('WebSocket 연결이 열렸습니다.')
+            stompClient?.publish({
+                destination:'/app/meetings/1/chat',
+                body:JSON.stringify({}),
+            })
+
+        }
+    }, []);
+
+
+
+
 
     useEffect(() => {   // chat 이벤트 수신, history 저장
         socket.on('chat message', (msg: { sender: string, message: string, timestamp: string }) => {
@@ -19,7 +51,7 @@ const ChatComponent: React.FC = () => {
             socket.off('chat message');
         };
     }, []);
-    
+
 
     useEffect(() => {   // 타이핑 상태 관리
         const typingTimeout = setTimeout(() => {
@@ -45,7 +77,7 @@ const ChatComponent: React.FC = () => {
             setIsTyping(true);
         }
     };
-    
+
 
     const sendMessage = () => {
         if (message !== '') {
