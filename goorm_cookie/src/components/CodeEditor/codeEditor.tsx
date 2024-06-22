@@ -107,6 +107,7 @@ const CodeEditor: React.FC<CodeEditorProps> = ({ roomId, language }) => {
             theme="light"
             options={{ selectOnLineNumbers: true, automaticLayout: true }}
             onMount={handleEditorDidMount}/>
+          
         </div>
         <div>
           <button className="compiling_box" onClick={runCode}>

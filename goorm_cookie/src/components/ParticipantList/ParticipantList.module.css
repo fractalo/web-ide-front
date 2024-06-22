@@ -1,0 +1,25 @@
+.userList {
+    padding: 10px;
+    border-right: 1px solid #ccc;
+    width: 200px;
+    box-sizing: border-box;
+}
+
+.userList h4 {
+    margin: 10px 0;
+    font-size: 16px;
+    color: #333;
+}
+
+.userEntry {
+    padding: 5px 10px;
+    margin: 5px 0;
+    border-radius: 4px;
+    background-color: #f4f4f4;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.userEntry:hover {
+    background-color: #ddd;
+}

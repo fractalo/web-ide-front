@@ -7,12 +7,6 @@ const socket: Socket = io('http://localhost:5173');
 const ChatComponent: React.FC = () => {
     const [message, setMessage] = useState<string>('');
     const [chatHistory, setChatHistory] = useState<{ sender: string, message: string, timestamp: string }[]>([]);
-    // const [usersOnline, setUsersOnline] = useState<{ [key: string]: string }>({});
-    const [usersOnline, setUsersOnline] = useState([ // 예시
-        { id: '1', name: 'Alice', isOnline: true },
-        { id: '2', name: 'Bob', isOnline: false }
-    ]);
-    
     const [isTyping, setIsTyping] = useState(false);
     const messagesEndRef = useRef<null | HTMLDivElement>(null);
 
@@ -21,13 +15,8 @@ const ChatComponent: React.FC = () => {
             setChatHistory(prevHistory => [...prevHistory, msg]);
         });
 
-        socket.on('user list', (users) => {
-            setUsersOnline(users);
-        });
-
         return () => {
             socket.off('chat message');
-            socket.off('user list');
         };
     }, []);
     
@@ -73,17 +62,7 @@ const ChatComponent: React.FC = () => {
     };
 
     return (
-        <div className="container">
-            <div className={styles.userList}>
-                <h4> 온라인 </h4>
-                {Object.entries(usersOnline).filter(([id, user]) => user.isOnline).map(([id, user]) => (
-                    <div key={id} className="userEntry">{user.name} </div>
-                ))}
-                <h4> 오프라인 </h4>
-                {Object.entries(usersOnline).filter(([id, user]) => !user.isOnline).map(([id, user]) => (
-                    <div key={id} className="userEntry">{user.name} </div>
-                ))}
-            </div>
+        <div className={styles.container}>
             <div className={styles.chatContainer}>
                 <ul className={styles.messages}>
                     {chatHistory.map((msg, index) => (
@@ -110,7 +89,6 @@ const ChatComponent: React.FC = () => {
             </div>
         </div>
     );
-    
 }
 
 export default ChatComponent;

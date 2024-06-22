@@ -1,13 +1,35 @@
-#ide_main_board{
-    width: 100%;
+/* dashboard.css */
+.dashboard-grid {
+    display : flex;
+    height: calc(100% - 80px);
+    padding-top: 80px;
+  }
+  
+  .code-editor-wrapper, .chat-component-wrapper {
+    flex: 1; /* 두 섹션의 가로 폭을 동일하게 설정 */
     display: flex;
-    justify-content: space-between;
-    margin: 16px auto auto 45px;
-}
+    flex-direction: column; /* 세로 배열 */
+  }
+  
+  /* 코드 에디터 스타일 */
+  #monaco-editor {
+    flex: 3; /* 코드 입력 부분이 더 크게 */
+  }
+  
+  #ide_out_put {
+    flex: 1; /* 컴파일 결과 부분 */
+  }
+  
+  /* 채팅 컴포넌트 스타일 */
+  .userList {
+    flex: 1; /* 유저 목록 부분 */
+  }
+  
+  .chatContainer {
+    flex: 2; /* 채팅창 부분이 더 크게 */
+  }
 
-#vertical-line{
-    border-radius: 8px;
-    width: 5px;
-    background-color: white;
-    margin: 0 30px 0 40px;
-}
+  html,body {
+    height: 100%
+  }
+  

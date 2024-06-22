@@ -9,7 +9,6 @@ const Container = styled.div`
   align-items: center;
   padding-left: 20px;
   position: fixed;
-  top: 1rem;
   left: -0.5rem;
   margin-right: 42rem;
   `;
