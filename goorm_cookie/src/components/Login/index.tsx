@@ -53,7 +53,7 @@ const Login: React.FC = () => {
                 sessionStorage.setItem('username', username);
                 sessionStorage.setItem('password', password);
             }
-            navigate('/');
+            navigate('/projects');
         } catch (err) {
             setError('로그인 중 오류가 발생했습니다.');
         }
