@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { EmailIcon, PasswordIcon } from '../../assets';
 import './styles.css';
+import "../../styles/commonStyles.css";
 import { Link, useNavigate } from 'react-router-dom';
 
 const Register: React.FC = () => {

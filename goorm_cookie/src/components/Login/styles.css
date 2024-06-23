@@ -1,144 +1,93 @@
-body {
-    color: white;
-    font-family: Arial, sans-serif;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100%;
-    margin: 0;
-    position: relative;
-}
+@import "../../styles/commonStyles.css";
 
 .login-container {
-    background-color: transparent !important;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    width: 22rem !important;
-    text-align: center;
-    margin: 30px auto;
-    position: relative;
-    top: 80px;
-}
-
-h2 {
-    color: white;
-    margin-bottom: 20px;
-}
-
-.form-group {
-    margin-bottom: 15px;
-    text-align: left;
-}
-
-.input-icon-container {
-    position: relative;
-}
-
-.input-icon {
-    position: absolute;
-    left: 10px;
-    top: 50%;
-    transform: translateY(-50%);
-    width: 20px;
-    height: 20px;
-}
-
-label {
-    display: block;
-    margin-bottom: 5px;
-}
-
-input {
-    width: 100%;
-    padding: 15px 10px 15px 38px !important;
-    box-sizing: border-box;
-    border: 1px solid #ccc !important;
-    color: white !important;
-    border-radius: 10px !important;
-    background-color: transparent !important;
-}
-
-button {
-    background-color: transparent !important;
-    width: 100%;
-    height: 45px;
-    padding: 15px;
-    background-color: transparent;
-    color: white;
-    border: 1px solid #ccc !important;
-    border-radius: 10px !important;
-    cursor: pointer;
-    margin: 15px auto 3px auto;
-}
-
-button:hover {
-    color: #0C081E;
-    background-color: white !important;
-}
-
-.kakao-google-login-container {
     display: flex;
-    margin-top: 10px;
-    border-radius: 12px;
-    justify-content: center;
-}
-
-.kakao-login {
-    border-radius: 12px;
-    width: 170px;
-    margin-right: 10px;
-}
-
-.kakao-login:hover {
-    cursor: pointer;
-}
-
-.google-login {
-    width: 170px;
-    border-radius: 10px;
-}
-
-.google-login:hover {
-    cursor: pointer;
-}
-
-.pass-link {
-    text-decoration: none;
-    float: right;
-    margin: 5px;
-}
-
-.links {
+    flex-direction: column;
+    align-items: center;
+    width: 350px;
+    margin-top: 170px;
     color: white;
-    font-size: 14px;
-}
-
-.links:hover {
-    color: #ffd253;
-    font-weight: 600;
-}
-
-.ifNotRegistered {
-    margin: 5px;
-    font-size: 14px;
-}
-
-.register-link {
-    margin-left: 3px;
-    color: white;
-    text-decoration: none;
 }
 
 .auto-login-container {
     display: flex;
     align-items: center;
     width: 150px;
-    margin-top: -8px;
+    margin-top: -25px;
+    margin-bottom: -20px;
     font-size: 14px;
+    color: white;
 }
 
 .auto-login-container input {
-    width: 30px;
-    margin-left: -2px;
+    width: 15px;
+    margin-left: 5px;
+    margin-right: 8px;
+}
+
+.kakao-google-login-container {
+    display: flex;
+    flex-direction: column;
+    margin-top: 10px;
+    border-radius: 12px;
+}
+
+.kakao-login,
+.google-login {
+    width: 100%;
+    border-radius: 10px;
+    margin-bottom: 0px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 52.8px;
+}
+
+.kakao-login:hover,
+.google-login:hover {
+    cursor: pointer;
+}
+
+.google-login {
+    background-color: white !important;
+    color: black;
+    font-family: 'Roboto Medium', sans-serif;
+    font-size: 16px;
+    font-weight: 500;
+    border: none;
+}
+
+.google-login:hover {
+    background-color: white !important;
+    color: black;
+}
+
+.google-logo {
+    margin-right: 24px;
+    width: 18px;
+    height: 18px;
+}
+
+.pass-link {
+    text-decoration: none;
+    float: right;
+    margin: 5px 5px 5px auto;
+}
+
+.register-link {
+    text-decoration: none;
+    float: right;
+    margin-left: 5px;
+}
+
+.ifNotRegistered {
+    font-size: 14px;
+}
+
+button {
+    background-color: transparent !important;
+    border: 1px solid white !important;
+    color: white;
+    font-size: 15px;
+    font-weight: 600;
 }

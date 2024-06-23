@@ -5,6 +5,47 @@ import { useAuth } from '../../contexts/AuthContext';
 import { signInWithPopup } from 'firebase/auth';
 import { auth, provider } from '../../firebaseAuth';
 import './styles.css';
+import "../../styles/commonStyles.css";
+
+// 카카오 API 응답 타입 정의
+interface KakaoAuthResponse {
+    access_token: string;
+    expires_in: number;
+    refresh_token: string;
+    refresh_token_expires_in: number;
+    scope: string;
+    token_type: string;
+}
+
+interface KakaoUserResponse {
+    id: number;
+    connected_at: string;
+    properties: {
+        nickname: string;
+        profile_image: string;
+        thumbnail_image: string;
+    };
+    kakao_account: {
+        profile_needs_agreement: boolean;
+        profile: {
+            nickname: string;
+            thumbnail_image_url: string;
+            profile_image_url: string;
+        };
+        has_email: boolean;
+        email_needs_agreement: boolean;
+        is_email_valid: boolean;
+        is_email_verified: boolean;
+        email: string;
+    };
+}
+
+declare global {
+    interface Window {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        Kakao: any;
+    }
+}
 
 const Login: React.FC = () => {
     const [username, setUsername] = useState('');
@@ -24,6 +65,12 @@ const Login: React.FC = () => {
             handleLogin({ preventDefault: () => {} } as React.FormEvent);
         }
     // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
+
+    useEffect(() => {
+        if (!window.Kakao.isInitialized()) {
+            window.Kakao.init('YOUR_APP_KEY'); // Replace with your actual Kakao app key
+        }
     }, []);
 
     const handleLogin = async (e: React.FormEvent) => {
@@ -60,16 +107,11 @@ const Login: React.FC = () => {
         setLoading(false);
     };
 
-    const handleKakaoLogin = () => {
-        console.log('카카오 로그인');
-    };
-
     const signInWithGoogle = () => {
         setLoading(true);
         signInWithPopup(auth, provider)
           .then((result) => {
             console.log(result);
-            // 로그인 성공 시 로그인 상태 업데이트
             login();
             navigate('/projects');
           })
@@ -78,6 +120,34 @@ const Login: React.FC = () => {
             setError('구글 로그인 중 오류가 발생했습니다.');
             setLoading(false);
           });
+    };
+
+    const signInWithKakao = () => {
+        if (window.Kakao && window.Kakao.Auth) {
+            window.Kakao.Auth.login({
+                success: function (authObj: KakaoAuthResponse) {
+                    console.log(authObj);
+                    window.Kakao.API.request({
+                        url: '/v2/user/me',
+                        success: function (res: KakaoUserResponse) {
+                            console.log(res);
+                            login();
+                            navigate('/projects');
+                        },
+                        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                        fail: function (error: any) {
+                            console.error(error);
+                        }
+                    });
+                },
+                // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                fail: function (err: any) {
+                    console.error(err);
+                }
+            });
+        } else {
+            console.error('Kakao SDK not loaded');
+        }
     };
 
     return (
@@ -133,17 +203,15 @@ const Login: React.FC = () => {
                     </button>
                     <div className="kakao-google-login-container">
                         <img
-                            src="/kakaoLoginShort.png"
+                            src="/kakaoLogin.png"
                             alt="카카오 로그인"
                             className="kakao-login"
-                            onClick={handleKakaoLogin}
+                            onClick={signInWithKakao}
                         />
-                        <img
-                            src="/googleLogin.png"
-                            alt="구글 로그인"
-                            className="google-login"
-                            onClick={signInWithGoogle}
-                        />
+                        <button className="google-login" onClick={signInWithGoogle}>
+                            <img src="/googleLogo.png" alt="Google 로고" className="google-logo" />
+                            Google 계정으로 로그인
+                        </button>
                     </div>
                 </form>
                 <div className="ifNotRegistered">
