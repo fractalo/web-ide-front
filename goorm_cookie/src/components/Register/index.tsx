@@ -7,20 +7,31 @@ const Register: React.FC = () => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
+    const [passwordError, setPasswordError] = useState('');
+    const [confirmPasswordError, setConfirmPasswordError] = useState('');
     const navigate = useNavigate();
 
     const handleRegister = (e: React.FormEvent) => {
         e.preventDefault();
+        let valid = true;
+
+        // Reset errors
+        setPasswordError('');
+        setConfirmPasswordError('');
 
         // 비밀번호 길이 확인
         if (password.length < 6) {
-            alert('비밀번호는 6자 이상이어야 합니다.');
-            return;
+            setPasswordError('비밀번호는 6자 이상이어야 합니다.');
+            valid = false;
         }
 
         // 비밀번호 일치 여부 확인
         if (password !== confirmPassword) {
-            alert('비밀번호가 일치하지 않습니다.');
+            setConfirmPasswordError('비밀번호가 일치하지 않습니다.');
+            valid = false;
+        }
+
+        if (!valid) {
             return;
         }
 
@@ -64,8 +75,10 @@ const Register: React.FC = () => {
                             onChange={(e) => setPassword(e.target.value)}
                             placeholder="비밀번호를 입력하세요"    
                             required 
+                            className={passwordError ? 'input-error' : ''}
                         />
                     </div>
+                    {passwordError && <div className="error-message">{passwordError}</div>}
                 </div>
                 <div className="form-group">
                     <label htmlFor="confirmPassword"></label>
@@ -79,8 +92,10 @@ const Register: React.FC = () => {
                             onChange={(e) => setConfirmPassword(e.target.value)}
                             placeholder="비밀번호를 다시 입력하세요"
                             required 
+                            className={confirmPasswordError ? 'input-error' : ''}
                         />
                     </div>
+                    {confirmPasswordError && <div className="error-message">{confirmPasswordError}</div>}
                 </div>
                 <button type="submit">회원가입</button>
             </form>
