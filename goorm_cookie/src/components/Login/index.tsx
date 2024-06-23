@@ -2,10 +2,11 @@ import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { EmailIcon, PasswordIcon } from '../../assets';
 import { useAuth } from '../../contexts/AuthContext';
-import { signInWithPopup, GoogleAuthProvider, getAuth } from "firebase/auth";
+import { signInWithPopup } from 'firebase/auth';
+import { auth, provider } from '../../firebaseAuth';
 import './styles.css';
 
-const LoginPage: React.FC = () => {
+const Login: React.FC = () => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [autoLogin, setAutoLogin] = useState(false);
@@ -13,8 +14,6 @@ const LoginPage: React.FC = () => {
     const [loading, setLoading] = useState(false);
     const { login } = useAuth();
     const navigate = useNavigate();
-    const provider = new GoogleAuthProvider();
-    const auth = getAuth();
 
     useEffect(() => {
         const savedUsername = localStorage.getItem('username') || sessionStorage.getItem('username');
@@ -155,4 +154,4 @@ const LoginPage: React.FC = () => {
     );
 };
 
-export default LoginPage;
+export default Login;
