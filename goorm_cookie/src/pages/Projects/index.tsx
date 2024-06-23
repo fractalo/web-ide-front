@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useParams } from 'react-router-dom';
-import Header from '../../components/Header';
+import Header2 from '../../components/Header2';
 import ChatComponent from '../../components/ChatComponent/ChatComponent';
 import ParticipantList from '../../components/ParticipantList';
 import './projects.css';
@@ -17,7 +17,7 @@ const Dashboard: React.FC = () => {
 
     return (
         <StyledProjects id="projects">
-            <Header />
+            <Header2 />
             <div className="projects-grid">
                 <StyledProjectsGridLeft className="projects-grid-left">
                     {roomId && lang }

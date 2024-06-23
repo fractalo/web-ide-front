@@ -1,24 +1,50 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useParams } from 'react-router-dom';
 import CodeEditor from '../../components/CodeEditor/codeEditor';
-import Header from '../../components/Header';
+import Header2 from '../../components/Header2';
 import ChatComponent from '../../components/ChatComponent/ChatComponent';
 import ParticipantList from '../../components/ParticipantList';
 import './dashboard.css';
 import styled from 'styled-components';
 import userDummy from '../../dummy/user.dummy'
+import axios from 'axios'
+import { SERVER_URL } from '../../constant/constant'
 
- 
+type UsesOnlineType = {
+    id:string,
+    name:string,
+    isOnline:boolean,
+}
+
+export type ProjectInfoType = {
+    contained_id?:string
+    created_at:string
+    created_by:object
+    id:number
+    name:string
+    updated_at:string
+}
+
+
 const Dashboard: React.FC = () => {
     const { roomId, lang } = useParams<{ roomId: string; lang: string }>();
-    const [usersOnline, setUsersOnline] = useState<{ id: string, name: string, isOnline: boolean }[]>([
+    const [usersOnline, setUsersOnline] = useState<UsesOnlineType[]>([
         { id: '1', name: 'Alice', isOnline: true },
         { id: '2', name: 'Bob', isOnline: false }
     ]);
+    const [projectInfo, setProjectInfo] = useState<ProjectInfoType | null>(null);
+
+    useEffect(() => {
+        const getProjectId = async () => {
+            const {data} = await axios.get(`${SERVER_URL}/api/projects/${roomId}`);
+            setProjectInfo(data.data);
+        }
+        getProjectId();
+    }, []);
 
     return (
         <StyledDashboard id="dashboard">
-            <Header />
+            <Header2 projectInfo={projectInfo}/>
             <div className="dashboard-grid">
                 <StyledDashboardGridLeft className="dashboard-grid-left">
                     {roomId && lang && <CodeEditor roomId={roomId} language={lang} />}
