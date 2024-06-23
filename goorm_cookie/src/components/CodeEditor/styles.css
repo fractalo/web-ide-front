@@ -1,7 +1,11 @@
 #monaco-editor {
     border: 1px solid white;
     background-color: white;
+    border-radius: 8px;
     height: 100%;
+    overflow: hidden;
+    margin-top: 20px;
+    padding-top: 5px
 }
 
 #ide_out_put {

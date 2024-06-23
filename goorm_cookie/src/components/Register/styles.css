@@ -6,6 +6,7 @@ body {
     align-items: center;
     height: 100%;
     margin: 0;
+    position: relative;
 }
 
 .login-container,
@@ -16,7 +17,9 @@ body {
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     width: 300px;
     text-align: center;
-    margin: 120px auto 30px auto;
+    margin: 30px auto;
+    position: relative;
+    top: 170px;
 }
 
 h2 {

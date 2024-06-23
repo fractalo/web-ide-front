@@ -8,6 +8,7 @@ import ForgotPassPage from './pages/ForgotPassPage';
 import { AuthProvider, useAuth } from './contexts/AuthContext';
 import C_Room from './pages/C_Room/C_Room';
 import Dashboard from './pages/dashboard/dashboard';
+import Projects from './pages/Projects';
 import ReactDOM from 'react-dom/client';
 
 
@@ -27,6 +28,7 @@ const App: React.FC = () => {
           <Route path="/info" element={<InfoPage />} />
           <Route path="/forgot-password" element={<ForgotPassPage />} />
           <Route path="/c_room" element={<C_Room />} />
+          <Route path="/projects" element={<Projects />} />
           <Route path="/room/:roomId/:lang" element={<Dashboard />} />
         </Routes>
       </BrowserRouter>

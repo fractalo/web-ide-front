@@ -1,38 +1,54 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { io, Socket } from 'socket.io-client';
 import styles from './ChatComponent.module.css';
+import { Client } from '@stomp/stompjs';
 
 const socket: Socket = io('http://localhost:5173');
 
 const ChatComponent: React.FC = () => {
     const [message, setMessage] = useState<string>('');
     const [chatHistory, setChatHistory] = useState<{ sender: string, message: string, timestamp: string }[]>([]);
-    // const [usersOnline, setUsersOnline] = useState<{ [key: string]: string }>({});
-    const [usersOnline, setUsersOnline] = useState([ // 예시
-        { id: '1', name: 'Alice', isOnline: true },
-        { id: '2', name: 'Bob', isOnline: false }
-    ]);
-    
     const [isTyping, setIsTyping] = useState(false);
     const messagesEndRef = useRef<null | HTMLDivElement>(null);
 
-    useEffect(() => {   // chat 이벤트 수신, history 저장
+    const [stompClient, setStompClient] = useState<Client | null>(null);
+
+    useEffect(() => {
+        const stomp = new Client({
+            brokerURL: 'ws://localhost:8080/ws',
+            connectHeaders: {},
+            debug: (str: string) => {
+                console.log(str);
+            },
+            reconnectDelay: 5000, // 자동 재 연결
+            heartbeatIncoming: 4000,
+            heartbeatOutgoing: 4000,
+        });
+        setStompClient(stomp);
+
+        stomp.activate();
+        stomp.onConnect = () => {
+            console.log('WebSocket 연결이 열렸습니다.');
+            stompClient?.publish({
+                destination: '/app/meetings/1/chat',
+                body: JSON.stringify({}),
+            });
+        };
+    }, []);
+
+    useEffect(() => {
+        // chat 이벤트 수신, history 저장
         socket.on('chat message', (msg: { sender: string, message: string, timestamp: string }) => {
             setChatHistory(prevHistory => [...prevHistory, msg]);
         });
 
-        socket.on('user list', (users) => {
-            setUsersOnline(users);
-        });
-
         return () => {
             socket.off('chat message');
-            socket.off('user list');
         };
     }, []);
-    
 
-    useEffect(() => {   // 타이핑 상태 관리
+    useEffect(() => {
+        // 타이핑 상태 관리
         const typingTimeout = setTimeout(() => {
             if (isTyping) {
                 socket.emit('stop typing');
@@ -43,27 +59,33 @@ const ChatComponent: React.FC = () => {
         return () => clearTimeout(typingTimeout);
     }, [message]);
 
-
-    useEffect(() => {   // 자동 스크롤
-        messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+    useEffect(() => {
+        // 자동 스크롤
+        messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
     }, [chatHistory]);
 
-
-    const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => { // 메시지 입력, 타이핑 상태 표시
+    const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        // 메시지 입력, 타이핑 상태 표시
         setMessage(e.target.value);
         if (!isTyping) {
             socket.emit('start typing');
             setIsTyping(true);
         }
     };
-    
+
+    const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
+        // Enter 키 이벤트 처리
+        if (e.key === 'Enter') {
+            sendMessage();
+        }
+    };
 
     const sendMessage = () => {
         if (message !== '') {
             const messageObject = {
-                sender: "User", //  로그인 데이터 받아와서 유저 닉네임으로 대체하기 !! 근데 여기서 로그인 페이지가 안보여요 못 찾음ㅠㅠ
+                sender: 'User', // 로그인 데이터 받아와서 유저 닉네임으로 대체하기
                 message: message,
-                timestamp: new Date().toLocaleTimeString()
+                timestamp: new Date().toLocaleTimeString(),
             };
             socket.emit('chat message', messageObject);
             setChatHistory(prevHistory => [...prevHistory, messageObject]);
@@ -73,17 +95,7 @@ const ChatComponent: React.FC = () => {
     };
 
     return (
-        <div className="container">
-            <div className={styles.userList}>
-                <h4> 온라인 </h4>
-                {Object.entries(usersOnline).filter(([id, user]) => user.isOnline).map(([id, user]) => (
-                    <div key={id} className="userEntry">{user.name} </div>
-                ))}
-                <h4> 오프라인 </h4>
-                {Object.entries(usersOnline).filter(([id, user]) => !user.isOnline).map(([id, user]) => (
-                    <div key={id} className="userEntry">{user.name} </div>
-                ))}
-            </div>
+        <div className={styles.container}>
             <div className={styles.chatContainer}>
                 <ul className={styles.messages}>
                     {chatHistory.map((msg, index) => (
@@ -97,20 +109,20 @@ const ChatComponent: React.FC = () => {
                     ))}
                     <div ref={messagesEndRef} />
                 </ul>
-                <div className={styles.messageForm}>
-                    <input
-                        type="text"
-                        value={message}
-                        onChange={handleInputChange}
-                        placeholder="메시지 입력..."
-                        className={styles.messageInput}
-                    />
-                    <button onClick={sendMessage} className={styles.sendButton}>보내기</button>
-                </div>
+            </div>
+            <div className={styles.messageForm}>
+                <input
+                    type="text"
+                    value={message}
+                    onChange={handleInputChange}
+                    onKeyDown={handleKeyPress}
+                    placeholder="메시지 입력..."
+                    className={styles.messageInput}
+                />
+                <button onClick={sendMessage} className={styles.sendButton}>보내기</button>
             </div>
         </div>
     );
-    
-}
+};
 
 export default ChatComponent;

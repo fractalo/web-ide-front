@@ -71,7 +71,7 @@ const Login: React.FC = () => {
             console.log(result);
             // 로그인 성공 시 로그인 상태 업데이트
             login();
-            navigate('/');
+            navigate('/projects');
           })
           .catch((error) => {
             console.error(error.code, error.message, error.customData.email);

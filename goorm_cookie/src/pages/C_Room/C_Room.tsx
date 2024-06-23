@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Header from '../../components/Header';
 import Footer from '../../components/Footer';
-import '../C_Room/c_room.css';
+import '../C_Room/C_Room.css';
 import axios from 'axios';
 import LanguageIcon, { RoomIcon } from '../../assets/index';
 
@@ -33,9 +33,10 @@ const C_Room: React.FC = () => {
   };
 
   return (
+    <>
+    <Header />
     <div className="cr_room">
       <div id="create_room-container">
-        <Header />
         <label htmlFor="room_title"></label>
         <div className="create_room-icon">
           <RoomIcon className="roomicon" />
@@ -69,7 +70,8 @@ const C_Room: React.FC = () => {
         </div>
         <Footer />
       </div>
-    </div>
+      </div>
+      </>
   );
 };
 
